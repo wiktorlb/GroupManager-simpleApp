@@ -1,0 +1,45 @@
+.request_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 auto;
+    padding: 1em;
+    width: 70%;
+
+    background-color: #e3e3e3;
+    color: #1f1f1f;
+
+    border: 0.1em solid #d1d1d1;
+    border-radius: 1em;
+}
+
+.request_title-wrapper {
+    padding-bottom: 0.7em;
+    color: #1f1f1f;
+
+    width: 100%;
+}
+.request_title {
+    display: flex;
+    justify-content: center;
+
+
+}
+.request_main {
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0em 0em 1em 0em #1f1f1f36 inset;
+}
+
+.request_buttons {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1em;
+}
+
+.request_buttons input {
+    margin: 0 1em;
+}

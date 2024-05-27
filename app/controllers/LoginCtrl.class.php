@@ -6,10 +6,14 @@ use core\Utils;
 use core\RoleUtils;
 use core\ParamUtils;
 use app\forms\LoginForm;
+use app\transfer\User;
+use PDOException;
+
 
 class LoginCtrl {
 
     private $form;
+	private $records;
 
     public function __construct() {
        $this->form = new LoginForm();
@@ -34,12 +38,33 @@ class LoginCtrl {
 
 		try {
 			$this->records = App::getDB()->get("user", "*", [
-				"email" => $this->form->login,
-				"password" => $this->form->pass,
+				"name" => $this->form->login,
+				"last_name" => $this->form->pass,
 			]);
 		} catch (PDOException $e) {
 			Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
 			if (App::getConf()->debug)  Utils::addErrorMessage($e->getMessage());
+		}
+		if (empty($this->records)) {
+			Utils::addErrorMessage('Niepoprawny login lub hasło');
+		} else {
+			$role = App::getDB()->get(
+				"role",
+				"name",
+				["id_role" => App::getDB()->get("user_has_role", 'Role_id_role', ['User_id_user' => $this->records["id_user"]])]
+			);
+
+
+			RoleUtils::addRole($role);
+			$user = new User($this->form->login, $role);
+			$_SESSION['user'] = serialize($user);
+
+			App::getDB()->update("role", [
+				"last_used" => date('Y-m-d H:i:s')
+
+			], [
+				"id_role" =>  App::getDB()->get("user_has_role", 'Role_id_role', ['User_id_user' => $this->records["id_user"]])
+			]);
 		}
     }
     public function action_loginShow() {
@@ -47,20 +72,20 @@ class LoginCtrl {
     }
 
     public function action_login() {
-        if ($this->validate()) {
-            //zalogowany => przekieruj na główną akcję (z przekazaniem messages przez sesję)
-            Utils::addErrorMessage('Poprawnie zalogowano do systemu');
-            //App::getRoute->
-        } else {
-            //niezalogowany => pozostań na stronie logowania
-            $this->generateView();
-        }
-    }
+		if ($this->validate()) {
+			App::getRouter()->redirectTo("MainPage");
+		} else {
+			App::getRouter()->redirectTo("MainPage");
+
+			$this->generateView();
+		}
+	}
 
     public function action_logout() {
         // 1. zakończenie sesji
         session_destroy();
 
+        App::getRouter()->redirectTo("LoginShow");
     }
 
     public function generateView() {

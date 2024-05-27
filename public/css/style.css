@@ -58,3 +58,11 @@
 .button-xlarge {
     font-size: 125%;
 }
+
+.footer {
+    background-color: gray;
+}
+
+body {
+    background-color: #e3e3e3;
+}

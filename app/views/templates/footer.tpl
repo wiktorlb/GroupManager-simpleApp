@@ -1,7 +1,9 @@
 {extends file="main.tpl"}
 
-{block name=footer}
+{block name=footerA}
     <footer id="footer">
-        <div class="wrapper"><h1> Work In Progress</h1> </div>
+        <div class="wrapper footer">
+            <h1> Work In Progress </h1>
+        </div>
 	</footer>
 {/block}

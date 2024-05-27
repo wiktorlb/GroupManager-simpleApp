@@ -1,15 +1,14 @@
 {extends file="main.tpl"}
 
-{block name=top}
-<form action="{$conf->action_root}login" method="post" class="pure-form pure-form-aligned bottom-margin">
-	<legend>Logowanie do systemu</legend>
+{block name=loginForm}
+<form action="{$conf->action_root}login" method="post" class="pure-form pure-form-aligned bottom-margin loginForm">
 	<fieldset>
         <div class="pure-control-group">
 			<label for="id_user">login: </label>
 			<input id="id_user" type="text" name="id_user" value="{$form->login}"/>
 		</div>
         <div class="pure-control-group">
-			<label for="id_pass">pass: </label>
+			<label for="id_pass">password: </label>
 			<input id="id_pass" type="password" name="password" /><br />
 		</div>
 		<div class="pure-controls">
