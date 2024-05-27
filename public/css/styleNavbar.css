@@ -1,0 +1,48 @@
+
+.loginForm {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.sidenav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 5em;
+
+    background-color: #1f1f1f;
+
+    font-family:"JetBrains Mono";
+    text-transform: uppercase;
+}
+
+.sidenav a{
+    padding: 0.4em 0.4em 0.4em 2em;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #efefef;
+}
+.sidenav a:hover{
+    color: red;
+}
+
+.logo_pic {
+    position: fixed;
+    top: 0.7em;
+    left: 1em;
+
+    height: 3em;
+    width: 3em;
+}
+
+.sidenav_profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidenav_actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-left: 8em;
+}
